@@ -1,0 +1,44 @@
+{
+  "name": "pulse",
+  "version": "1.0.0",
+  "description": "Pulse is a monitoring and management platform for Node.js applications running on PM2. Built with TanStack Start, Drizzle ORM, and PostgreSQL, it provides real-time insights into server health and process performance on your server. Designed for reliability and scalability, Pulse ensures optimal performance for applications like e-commerce platforms with features for monitoring, control, and alerting.",
+  "keywords": [
+    "drizzle-orm",
+    "tanstack-start",
+    "tanstack-query",
+    "postgresql",
+    "pm2",
+    "pm2-node",
+    "tanstack-router"
+  ],
+  "homepage": "https://github.com/thecodingmontana/pulse#readme",
+  "bugs": {
+    "url": "https://github.com/thecodingmontana/pulse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecodingmontana/pulse.git"
+  },
+  "license": "MIT",
+  "author": "thecodingmontana",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.132.23",
+    "@tanstack/react-start": "^1.132.24",
+    "@vitejs/plugin-react": "^5.0.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "vite": "^7.1.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.15",
+    "@types/react-dom": "^19.1.9",
+    "typescript": "^5.9.2",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

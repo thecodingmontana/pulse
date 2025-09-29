@@ -1,6 +1,6 @@
 # Pulse
 
-Pulse is a powerful, full-stack monitoring and management dashboard for Node.js applications running on PM2. Built with TanStack Start, Drizzle ORM, and PostgreSQL, it provides real-time insights into server health and process performance on your server. Designed for reliability and scalability, Pulse ensures optimal performance for applications like e-commerce platforms with features for monitoring, control, and alerting.
+Pulse is a monitoring and management platform for Node.js applications running on PM2. Built with TanStack Start, Drizzle ORM, and PostgreSQL, it provides real-time insights into server health and process performance on your server. Designed for reliability and scalability, Pulse ensures optimal performance for applications like e-commerce platforms with features for monitoring, control, and alerting.
 
 ## Features
 
