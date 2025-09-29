@@ -5,6 +5,10 @@
     "module": "ESNext",
     "target": "ESNext",
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   }
 }
