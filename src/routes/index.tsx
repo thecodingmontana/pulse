@@ -5,16 +5,15 @@ import { createServerFn } from "@tanstack/react-start";
 const filePath = "count.txt";
 
 async function readCount() {
-  return parseInt(
-    await fs.promises.readFile(filePath, "utf-8").catch(() => "0")
+  return Number.parseInt(
+    await fs.promises.readFile(filePath, "utf-8").catch(() => "0"),
+    10,
   );
 }
 
 const getCount = createServerFn({
   method: "GET",
-}).handler(() => {
-  return readCount();
-});
+}).handler(() => readCount());
 
 const updateCount = createServerFn({ method: "POST" })
   .inputValidator((d: number) => d)
@@ -34,12 +33,12 @@ function Home() {
 
   return (
     <button
-      type="button"
       onClick={() => {
         updateCount({ data: 1 }).then(() => {
           router.invalidate();
         });
       }}
+      type="button"
     >
       Add 1 to {state}?
     </button>
