@@ -11,6 +11,10 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import type { ReactNode } from "react";
+import { Toaster } from "~/components/ui/sonner";
+import { seo } from "~/lib/seo";
+import NprogressProvider from "~/providers/nprogress-provider";
+import { ThemeProvider } from "~/providers/theme-provider";
 import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRouteWithContext<{
@@ -25,9 +29,12 @@ export const Route = createRootRouteWithContext<{
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      {
-        title: "TanStack Start Starter",
-      },
+      ...seo({
+        title: "Pulse - PM2 Monitoring",
+        description:
+          "Pulse is a monitoring and management platform for Node.js applications running on PM2.",
+      }),
+      { name: "apple-mobile-web-app-title", content: "Pulse" },
     ],
     links: [
       {
@@ -54,7 +61,11 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <ThemeProvider>
+          {children}
+          <Toaster closeButton richColors />
+        </ThemeProvider>
+        <NprogressProvider />
         <TanStackDevtools
           plugins={[
             {
