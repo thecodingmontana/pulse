@@ -9,38 +9,109 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
+import { Route as AuthRouteImport } from "./routes/_auth";
 import { Route as IndexRouteImport } from "./routes/index";
+import { Route as AuthAuthSignupRouteImport } from "./routes/_auth/auth/signup";
+import { Route as AuthAuthSigninRouteImport } from "./routes/_auth/auth/signin";
+import { Route as ApiOauthSigninGoogleIndexRouteImport } from "./routes/api/oauth/signin/google/index";
+import { Route as ApiOauthSigninGoogleCallbackIndexRouteImport } from "./routes/api/oauth/signin/google/callback/index";
 
+const AuthRoute = AuthRouteImport.update({
+  id: "/_auth",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => rootRouteImport,
 } as any);
+const AuthAuthSignupRoute = AuthAuthSignupRouteImport.update({
+  id: "/auth/signup",
+  path: "/auth/signup",
+  getParentRoute: () => AuthRoute,
+} as any);
+const AuthAuthSigninRoute = AuthAuthSigninRouteImport.update({
+  id: "/auth/signin",
+  path: "/auth/signin",
+  getParentRoute: () => AuthRoute,
+} as any);
+const ApiOauthSigninGoogleIndexRoute =
+  ApiOauthSigninGoogleIndexRouteImport.update({
+    id: "/api/oauth/signin/google/",
+    path: "/api/oauth/signin/google/",
+    getParentRoute: () => rootRouteImport,
+  } as any);
+const ApiOauthSigninGoogleCallbackIndexRoute =
+  ApiOauthSigninGoogleCallbackIndexRouteImport.update({
+    id: "/api/oauth/signin/google/callback/",
+    path: "/api/oauth/signin/google/callback/",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
+  "/auth/signin": typeof AuthAuthSigninRoute;
+  "/auth/signup": typeof AuthAuthSignupRoute;
+  "/api/oauth/signin/google": typeof ApiOauthSigninGoogleIndexRoute;
+  "/api/oauth/signin/google/callback": typeof ApiOauthSigninGoogleCallbackIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/auth/signin": typeof AuthAuthSigninRoute;
+  "/auth/signup": typeof AuthAuthSignupRoute;
+  "/api/oauth/signin/google": typeof ApiOauthSigninGoogleIndexRoute;
+  "/api/oauth/signin/google/callback": typeof ApiOauthSigninGoogleCallbackIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
+  "/_auth": typeof AuthRouteWithChildren;
+  "/_auth/auth/signin": typeof AuthAuthSigninRoute;
+  "/_auth/auth/signup": typeof AuthAuthSignupRoute;
+  "/api/oauth/signin/google/": typeof ApiOauthSigninGoogleIndexRoute;
+  "/api/oauth/signin/google/callback/": typeof ApiOauthSigninGoogleCallbackIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/";
+  fullPaths:
+    | "/"
+    | "/auth/signin"
+    | "/auth/signup"
+    | "/api/oauth/signin/google"
+    | "/api/oauth/signin/google/callback";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/";
-  id: "__root__" | "/";
+  to:
+    | "/"
+    | "/auth/signin"
+    | "/auth/signup"
+    | "/api/oauth/signin/google"
+    | "/api/oauth/signin/google/callback";
+  id:
+    | "__root__"
+    | "/"
+    | "/_auth"
+    | "/_auth/auth/signin"
+    | "/_auth/auth/signup"
+    | "/api/oauth/signin/google/"
+    | "/api/oauth/signin/google/callback/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  AuthRoute: typeof AuthRouteWithChildren;
+  ApiOauthSigninGoogleIndexRoute: typeof ApiOauthSigninGoogleIndexRoute;
+  ApiOauthSigninGoogleCallbackIndexRoute: typeof ApiOauthSigninGoogleCallbackIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
+    "/_auth": {
+      id: "/_auth";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/": {
       id: "/";
       path: "/";
@@ -48,11 +119,55 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/_auth/auth/signup": {
+      id: "/_auth/auth/signup";
+      path: "/auth/signup";
+      fullPath: "/auth/signup";
+      preLoaderRoute: typeof AuthAuthSignupRouteImport;
+      parentRoute: typeof AuthRoute;
+    };
+    "/_auth/auth/signin": {
+      id: "/_auth/auth/signin";
+      path: "/auth/signin";
+      fullPath: "/auth/signin";
+      preLoaderRoute: typeof AuthAuthSigninRouteImport;
+      parentRoute: typeof AuthRoute;
+    };
+    "/api/oauth/signin/google/": {
+      id: "/api/oauth/signin/google/";
+      path: "/api/oauth/signin/google";
+      fullPath: "/api/oauth/signin/google";
+      preLoaderRoute: typeof ApiOauthSigninGoogleIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/oauth/signin/google/callback/": {
+      id: "/api/oauth/signin/google/callback/";
+      path: "/api/oauth/signin/google/callback";
+      fullPath: "/api/oauth/signin/google/callback";
+      preLoaderRoute: typeof ApiOauthSigninGoogleCallbackIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
+interface AuthRouteChildren {
+  AuthAuthSigninRoute: typeof AuthAuthSigninRoute;
+  AuthAuthSignupRoute: typeof AuthAuthSignupRoute;
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAuthSigninRoute: AuthAuthSigninRoute,
+  AuthAuthSignupRoute: AuthAuthSignupRoute,
+};
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren);
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
+  ApiOauthSigninGoogleIndexRoute: ApiOauthSigninGoogleIndexRoute,
+  ApiOauthSigninGoogleCallbackIndexRoute:
+    ApiOauthSigninGoogleCallbackIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

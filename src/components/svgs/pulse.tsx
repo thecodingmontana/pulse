@@ -8,7 +8,7 @@ export default function Pulse(props: SVGProps<SVGSVGElement>) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <title>Pulse Log</title>
+      <title>Pulse Logo</title>
       <g
         id="logogram"
         style={{
